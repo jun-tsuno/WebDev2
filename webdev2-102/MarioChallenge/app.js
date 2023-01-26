@@ -1,5 +1,8 @@
+let count = 0;
 let maxHeight = 0;
 let maxWidth = 0;
+const body = document.querySelector("body");
+const coin = document.getElementById("coin");
 const footSound = "./audio/smw_footstep.wav";
 const coinSound = "./audio/smw_coin.wav";
 
@@ -23,6 +26,13 @@ const init = () => {
 	// get window size
 	maxWidth = window.innerWidth;
 	maxHeight = window.innerHeight;
+	// create counter
+	const counter = document.createElement("h1");
+	const button = document.createElement("button");
+	counter.innerText = `Total: ${count}`;
+	button.innerText = "RESET";
+	body.insertBefore(counter, body.firstChild);
+	body.insertBefore(button, counter.nextSibling);
 
 	moveCoin();
 	window.addEventListener("keyup", function (e) {
@@ -38,7 +48,16 @@ const init = () => {
 			avatar.style.transform = "scaleX(-1)";
 		}
 
-		if (isTouching(avatar, coin)) moveCoin(), handleCoinSound();
+		if (isTouching(avatar, coin)) {
+			moveCoin();
+			handleCoinSound();
+			counter.innerText = `Total: ${++count}`;
+		}
+	});
+
+	button.addEventListener("click", () => {
+		count = 0;
+		counter.innerText = `Total: ${count}`;
 	});
 };
 
@@ -68,8 +87,8 @@ const extractPos = (position) => {
 const moveCoin = () => {
 	const x = Math.floor(Math.random() * window.innerWidth);
 	const y = Math.floor(Math.random() * window.innerHeight);
-	coin.style.top = `${x}px`;
-	coin.style.left = `${y}px`;
+	x < 100 ? (coin.style.left = `${x}px`) : (coin.style.left = `${x - 100}px`);
+	y < 100 ? (coin.style.top = `${y}px`) : (coin.style.top = `${y - 100}px`);
 };
 
 const handleFootSound = () => {
@@ -85,6 +104,7 @@ const handleCoinSound = () => {
 	audio.id = "coin-sound";
 	audio.src = coinSound;
 	document.body.appendChild(audio);
+	document.getElementById("coin-sound").play();
 };
 
 init();
