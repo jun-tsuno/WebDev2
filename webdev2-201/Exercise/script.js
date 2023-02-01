@@ -24,7 +24,7 @@ $(document).ready(function () {
 
 			doneBtn.click(function (e) {
 				const taskItem = e.currentTarget.parentNode;
-				e.currentTarget.remove();
+				taskItem.remove();
 				$(taskItem).fadeOut(1000);
 				$(taskItem).clone(true).appendTo(".completed").hide().fadeIn(1000);
 			});
