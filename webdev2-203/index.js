@@ -5,7 +5,7 @@ const addButton = document.querySelector("#new-post button");
 const title = document.getElementById("title");
 const content = document.getElementById("content");
 
-async function sendHttpRequest(method, url) {
+async function sendHttpRequest(method, url, inputData) {
 	//with XHR
 	// const promise = new Promise((resolve, reject) => {
 	//     const xhr = new XMLHttpRequest()
@@ -31,7 +31,7 @@ async function sendHttpRequest(method, url) {
 	// return await fetch(url, {method}).then(r => r.json())
 
 	//with axios
-	const { data } = await axios(url, { method });
+	const { data } = await axios(url, { method, data: inputData });
 	return data;
 	// return axios.get(url)
 }
@@ -45,24 +45,21 @@ async function addPosts(e) {
 		return alert("Fill in both fields!!");
 	}
 
-	const data = { userId: 1, title: inputTitle, body: inputContent };
-	await axios
-		.post("https://jsonplaceholder.typicode.com/posts", data)
-		.then((res) => {
-			const postedData = res.data;
-			console.log(postedData);
+	const inputData = { userId: 1, title: inputTitle, body: inputContent };
 
-			const postElClone = document.importNode(postTemplate.content, true);
-			postElClone.querySelector(
-				"h2"
-			).textContent = `${postedData.title} : NEW!!`;
-			postElClone.querySelector("p").textContent = postedData.body;
-			postElClone.querySelector("li").id = postedData.id;
-			listElement.appendChild(postElClone);
-		})
-		.catch((err) => {
-			console.log(`error: ${err}`);
-		});
+	const response = await sendHttpRequest(
+		"POST",
+		"https://jsonplaceholder.typicode.com/posts",
+		inputData
+	);
+	console.log(response);
+
+	const postElClone = document.importNode(postTemplate.content, true);
+	postElClone.querySelector("h2").textContent = `${response.title} : NEW!!`;
+	postElClone.querySelector("p").textContent = response.body;
+	postElClone.querySelector("li").id = response.id;
+	listElement.appendChild(postElClone);
+
 	title.value = "";
 	content.value = "";
 }
