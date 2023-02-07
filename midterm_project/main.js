@@ -1,7 +1,16 @@
 const itemsList = $("#items-list");
+const cartList = $("#cart-list");
 const cardTemplate = $("#card-temp").html();
-const myModal = document.getElementById("myModal");
-const myInput = document.getElementById("myInput");
+const cartTemplate = $("#cart-temp").html();
+
+const handleAdd = (e) => {
+	const clickedParent = e.target.parentElement;
+	const addTitle = $(clickedParent).find(".card-title").text();
+	const addPrice = $(clickedParent).find(".card-price").text();
+
+	console.log(cartTemplate);
+	$(cartList).after(cartTemplate);
+};
 
 $(document).ready(async () => {
 	// const items = await axios.get("https://fakestoreapi.com/products?limit=5");
@@ -28,10 +37,7 @@ $(document).ready(async () => {
 					$(clonedCard).appendTo(itemsList);
 				});
 			}
+			$(".add-button").on("click", handleAdd);
 		})
 		.catch((error) => console.log(error));
-});
-
-myModal.addEventListener("shown.bs.modal", () => {
-	myInput.focus();
 });

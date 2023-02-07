@@ -8,6 +8,10 @@
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+		/>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 		<script
 			src="https://code.jquery.com/jquery-3.6.3.slim.js"
@@ -35,12 +39,29 @@
 				<div class="card-body">
 					<h5 class="card-title">Card title</h5>
 					<p class="card-price"></p>
-					<button class="btn btn-primary">Add Cart</button>
+					<button class="add-button btn btn-primary">Add Cart</button>
 				</div>
 			</div>
 		</template>
+		<template id="cart-temp">
+			<li style="list-style: none">
+				<span class="add-title">hello</span>
+				<span class="add-price"></span>
+				<button type="button" class="btn btn-danger btn-sm">DELETE</button>
+			</li>
+		</template>
 		<div class="container" style="text-align: center">
 			<h1>Fake Store API</h1>
+			<button
+				type="button"
+				class="btn btn-primary"
+				data-bs-toggle="modal"
+				data-bs-target="#exampleModal"
+			>
+				<i class="bi bi-cart-check-fill"></i>
+				Cart
+				<span class="badge text-bg-light">4</span>
+			</button>
 			<section>
 				<h5>ALL ITEMS</h5>
 				<div
@@ -48,15 +69,6 @@
 					class="d-flex flex-wrap justify-content-center"
 				></div>
 			</section>
-
-			<button
-				type="button"
-				class="btn btn-primary"
-				data-bs-toggle="modal"
-				data-bs-target="#exampleModal"
-			>
-				Launch demo modal
-			</button>
 			<div
 				class="modal fade"
 				id="exampleModal"
@@ -64,12 +76,10 @@
 				aria-labelledby="exampleModalLabel"
 				aria-hidden="true"
 			>
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-dialog-scrollable">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="exampleModalLabel">
-								Modal title
-							</h1>
+							<h1 class="modal-title fs-5" id="exampleModalLabel">Your Cart</h1>
 							<button
 								type="button"
 								class="btn-close"
@@ -77,7 +87,11 @@
 								aria-label="Close"
 							></button>
 						</div>
-						<div class="modal-body">...</div>
+						<div class="modal-body">
+							<ul id="cart-list"></ul>
+							<h4>Cart Item: 0</h4>
+							<h4>Total: $100</h4>
+						</div>
 						<div class="modal-footer">
 							<button
 								type="button"
@@ -85,9 +99,6 @@
 								data-bs-dismiss="modal"
 							>
 								Close
-							</button>
-							<button type="button" class="btn btn-primary">
-								Save changes
 							</button>
 						</div>
 					</div>
