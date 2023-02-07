@@ -3,28 +3,32 @@ const cartList = $("#cart-list");
 const cardTemplate = $("#card-temp").html();
 const cartTemplate = $("#cart-temp").html();
 
+const cartItems = [];
+
 const handleAdd = (e) => {
 	const clickedParent = e.target.parentElement;
 	const addTitle = $(clickedParent).find(".card-title").text();
 	const addPrice = $(clickedParent).find(".card-price").text();
+	const clonedCartTemplate = $(cartTemplate).clone(true);
+	const data = { title: addTitle, price: addPrice };
 
-	console.log(cartTemplate);
-	$(cartList).after(cartTemplate);
+	axios({
+		method: "POST",
+		url: "https://run.mocky.io/v3/4d89e4c9-4108-41c8-814e-554d5ac7bc7e",
+		data,
+	}).then((response) => {
+		const addedItem = JSON.parse(response.config.data);
+		cartItems.push(addedItem);
+
+		$(clonedCartTemplate).find(".add-title").text(addedItem.title);
+		$(clonedCartTemplate).find(".add-price").text(addedItem.price);
+
+		console.log(clonedCartTemplate);
+		$(cartList).after(clonedCartTemplate);
+	});
 };
 
 $(document).ready(async () => {
-	// const items = await axios.get("https://fakestoreapi.com/products?limit=5");
-	// console.log(items);
-
-	// if (items.data.length > 0) {
-	// 	items.data.map((item) => {
-	// 		const clonedCard = $(cardTemplate).clone(true);
-	// 		$(clonedCard).find(".card-title").html(item.title);
-	// 		$(clonedCard).find(".card-img-top").attr("src", item.image);
-	// 		$(clonedCard).appendTo(itemsList);
-	// 	});
-	// }
-
 	await axios
 		.get("https://fakestoreapi.com/products?limit=15")
 		.then(({ data }) => {

@@ -44,9 +44,16 @@
 			</div>
 		</template>
 		<template id="cart-temp">
-			<li style="list-style: none">
-				<span class="add-title">hello</span>
-				<span class="add-price"></span>
+			<li
+				style="
+					list-style: none;
+					border: solid 2px black;
+					padding: 3px;
+					margin-bottom: 3px;
+				"
+			>
+				<p class="add-title"></p>
+				<p class="add-price"></p>
 				<button type="button" class="btn btn-danger btn-sm">DELETE</button>
 			</li>
 		</template>
@@ -89,10 +96,10 @@
 						</div>
 						<div class="modal-body">
 							<ul id="cart-list"></ul>
-							<h4>Cart Item: 0</h4>
-							<h4>Total: $100</h4>
 						</div>
 						<div class="modal-footer">
+							<span>Cart Item: 0</span>
+							<span>Total: $100</span>
 							<button
 								type="button"
 								class="btn btn-secondary"
