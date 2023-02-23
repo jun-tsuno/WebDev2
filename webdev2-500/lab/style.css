@@ -1,0 +1,83 @@
+/* base style */
+body {
+	font-family: "Poppins", sans-serif;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+/* -- nav -- */
+
+.nav {
+	display: flex;
+	justify-content: space-around;
+}
+
+.logo {
+	font-weight: 700;
+	font-size: 2rem;
+	text-transform: uppercase;
+}
+
+.menu-links ul {
+	display: flex;
+}
+
+.menu-links li {
+	padding: 0 0.5rem;
+}
+
+/* -- content -- */
+
+.content {
+	width: 90%;
+	max-width: 50rem;
+	margin: 0 auto;
+	padding: 3rem 0;
+}
+
+.title {
+	font-weight: 700;
+	font-size: 9rem;
+	text-transform: uppercase;
+	line-height: 100%;
+}
+
+.tagline {
+	padding: 1rem 0;
+	font-size: 1.5rem;
+	color: gray;
+}
+
+.desc {
+	padding: 2rem 0;
+}
+
+.desc p:first-child {
+	font-size: 1.5rem;
+}
+
+.desc p:last-child {
+	font-size: 0.8rem;
+}
+
+/* -- image -- */
+
+.beer {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.beer img {
+	width: 60%;
+	min-width: 30rem;
+	max-width: 35rem;
+}
